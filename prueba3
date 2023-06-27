@@ -1,0 +1,92 @@
+lista_rut = []
+lista_nombre = []
+lista_nombre_mascota =[]
+habitacion = []
+mascotas = []
+grabar =[]
+
+print("PERDI MÁS DE LA MITAD DE LO QUE TENIA HECHO")
+
+habitaciones = [
+    {"numero": 1, "disponible": True},
+    {"numero": 2, "disponible": True},
+    {"numero": 3, "disponible": True},
+    {"numero": 4, "disponible": True},
+    {"numero": 5, "disponible": True},
+    {"numero": 6, "disponible": True},
+    {"numero": 7, "disponible": True},
+    {"numero": 8, "disponible": True},
+    {"numero": 9, "disponible": True},
+    {"numero":10, "disponible": True}
+]
+
+
+def ver_habitaciones_disponible():
+    print("Habitaciones:")
+    for habitaciones in habitacion:
+        disponible = "Disponible" if habitaciones["disponible"] else "No disponible"
+        print(f"Habitacion {habitaciones['numero']} - Estado: {disponible}")     
+   
+def validar_rut(lista_rut):
+    return 1000000 <= lista_rut <= 99999999
+
+def validar_nombre(lista_nombre):
+    return len(lista_nombre)>=3 and " " not in lista_nombre
+
+def validar_nombre_mascota(lista_nombre_mascota):
+    return len(lista_nombre_mascota)>=3
+
+
+def reservar_habitacion():
+    rut = int(input("Ingrese el rut del cliente (sin puntos ni dígito verificador): "))
+    while not validar_rut(rut):
+        print("Rut inválido.")
+        rut = int(input("Ingrese nuevamente el rut del cliente (sin puntos ni dígito verificador): "))
+
+    lista_nombre = input("Ingrese el nombre del cliente: ")
+    while not validar_nombre(lista_nombre):
+        print("Nombre inválido.")
+        lista_nombre = input("Ingrese nuevamente el nombre del cliente: ")
+
+    lista_nombre_mascota = input("Ingrese el nombre del cliente: ")
+    while not validar_nombre(lista_nombre_mascota):
+        print("Nombre inválido.")
+        lista_nombre_mascota = input("Ingrese nuevamente el nombre de la mascota: ")
+
+    mascotas = int(input("Ingrese la cantidad de mascotas que registrará: "))
+    while mascotas < 1 or personas > 3:
+        print("Cantidad de mascotas inválida. La reserva debe ser para un maximo de 3 mascotas.")
+        personas = int(input("Ingrese nuevamente la cantidad de mascotas que asistirá: "))
+
+
+    habitaciones_disponibles = [habitacion for habitacion in habitacion if habitacion ["capacidad"] >= mascotas and habitacion["disponible"]]
+    if len(habitaciones_disponibles) == 0:
+        print("Lo sentimos, no hay mesas disponibles para la cantidad de personas solicitada.")
+        return
+
+    print("Habitaciones disponibles:")
+    for habitacion in habitaciones_disponibles:
+        print(f"Habitación {habitacion['numero']} - Capacidad: {habitacion['capacidad']} mascotas")
+
+    numero_habitacion = int(input("Ingrese el número de la habitacion que desea reservar: "))
+    habitacion_seleccionada = next((habitacion for habitacion in habitaciones_disponibles if habitacion["numero"] == numero_habitacion), None)
+    while habitacion_seleccionada is None:
+        print("Número de mesa inválido. Por favor, ingrese un número válido de mesa.")
+        numero_habitacion = int(input("Ingrese nuevamente el número de la habitacion que desea reservar: "))
+        habitacion_seleccionada = next((habitacion for habitacion in habitaciones_disponibles if habitacion["numero"] == habitacion), None)
+    
+
+
+
+while True:
+    print ("""MENÚ MASCOTA SEGURA
+    1.Grabar
+    2.Buscar
+    3.Retirarse 
+    4.Salir
+    """)
+    
+    opcion = int(input("ingrese la opcion del menú que desea seleccionar: "))
+
+    if opcion == 1:
+        ver_habitaciones_disponible()
